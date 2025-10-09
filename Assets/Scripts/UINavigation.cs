@@ -9,9 +9,15 @@ public class UINavigation: MonoBehaviour
     {
         characterChosen = false;
     }
-    public void StartButtonSceneTransition()
+    public void ToSelectScene()
     {
         SceneManager.LoadScene("SelectScreen");
+    }
+    
+    public void ToMainMenuScene()
+    {
+        SceneManager.LoadScene("StartScreen");
+        Time.timeScale = 1;
     }
 
     public void SelectCharacter(int characterIndex)
@@ -20,12 +26,33 @@ public class UINavigation: MonoBehaviour
         characterChosen = true;
     }
 
-    public void SelectButtonSceneTransition()
+    public void ToGameScene()
     {
         if (characterChosen)
         {
             SceneManager.LoadScene("GameScreen");
         }
+    }
+
+    public void ToTutorialScene()
+    {
+        if (characterChosen)
+        {
+            SceneManager.LoadScene("TutorialScreen");
+        }
+        {
+            
+        }
+    }
+    
+    public void QuitGame()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
+        Debug.Log("Quit requested.");
     }
     
 }

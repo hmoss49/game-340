@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 4814617938575592063}
   - component: {fileID: 5868634916442551588}
   - component: {fileID: 3619392957944600818}
+  - component: {fileID: 2049962014223035003}
+  - component: {fileID: 7521634025251609062}
   m_Layer: 0
   m_Name: Grappler
   m_TagString: Player
@@ -30,7 +32,7 @@ Transform:
   m_GameObject: {fileID: 345038796126905577}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.51, y: -0.82, z: 0}
+  m_LocalPosition: {x: 2.19686, y: 0.13849, z: 0}
   m_LocalScale: {x: 2, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -136,10 +138,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0f1f2c11f3e8c2469b99c4885998207, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FighterController
-  moveSpeed: 3
-  gravity: -9.81
-  jumpForce: 3
+  movement: {fileID: 0}
   checkGrounded: {fileID: 5868634916442551588}
+  anim: {fileID: 0}
+  printCompactSummary: 0
+  printVerboseLog: 0
+  debugPrintInterval: 0.25
 --- !u!114 &5868634916442551588
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -203,3 +207,35 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &2049962014223035003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 345038796126905577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 596e2431e60215549858bacf14b31c1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FighterMovement
+  moveSpeed: 5
+  gravity: -9.81
+  weight: 1.5
+  jumpForce: 8
+  crouchScaleY: 0.5
+  crouchTransitionSpeed: 15
+--- !u!114 &7521634025251609062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 345038796126905577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d7f8510a9d7f014b8a9b251a2f1470e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FighterBounds
+  pushSmooth: 15
+  tolerance: 0.001
