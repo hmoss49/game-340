@@ -7,15 +7,6 @@
             "id": "15ac522d-e343-41df-b315-6f93016c350a",
             "actions": [
                 {
-                    "name": "Move",
-                    "type": "Value",
-                    "id": "f00cad18-7450-4e31-bf4e-b3e69a6d0580",
-                    "expectedControlType": "Axis",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
                     "name": "Jump",
                     "type": "Button",
                     "id": "4d801c72-b1b1-4edd-9ca9-c0c1143fbf86",
@@ -88,22 +79,13 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Log",
-                    "type": "Button",
-                    "id": "3ad68c9c-8d8a-482e-87c1-ec57dbf29843",
-                    "expectedControlType": "",
+                    "name": "Move",
+                    "type": "Value",
+                    "id": "59a028d1-e0da-47e1-8861-84b8392021da",
+                    "expectedControlType": "Axis",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Pause",
-                    "type": "Button",
-                    "id": "a6d7b8bf-5a2a-4bb5-bb7f-984156f3c496",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -307,51 +289,7 @@
                 },
                 {
                     "name": "",
-                    "id": "3929b841-caa9-46f9-815d-d713c4e8f076",
-                    "path": "<Gamepad>/select",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Log",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "e3804aeb-152b-4b4d-a7de-1faad450ea0d",
-                    "path": "<Keyboard>/f1",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Log",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "b9d4e05c-d68f-4440-9fa9-24336107dc28",
-                    "path": "<Gamepad>/start",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Pause",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "0ff4f351-7cd5-4987-92b9-19906ecf6016",
-                    "path": "<Keyboard>/escape",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Pause",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "8cb194cc-f781-4be8-927a-c7dbbe4cca7e",
+                    "id": "67adfd5e-005b-45cf-8ec4-1893b0dbe6dc",
                     "path": "<Gamepad>/leftStick/x",
                     "interactions": "",
                     "processors": "",
@@ -362,7 +300,7 @@
                 },
                 {
                     "name": "",
-                    "id": "f54e5734-aa1d-48c2-a595-651123812141",
+                    "id": "e53d0681-2e25-49c0-8ef5-701f2451fb00",
                     "path": "<Gamepad>/dpad/x",
                     "interactions": "",
                     "processors": "",
@@ -373,7 +311,7 @@
                 },
                 {
                     "name": "1D Axis",
-                    "id": "0b1e73b4-cee7-457b-8344-d5004642216b",
+                    "id": "1fc20620-3944-4056-a512-edc018469496",
                     "path": "1DAxis",
                     "interactions": "",
                     "processors": "",
@@ -384,7 +322,7 @@
                 },
                 {
                     "name": "negative",
-                    "id": "821939b8-5c07-4194-b813-d3b817d2649e",
+                    "id": "b13bdbf7-4089-411c-bd3d-89c05ca91d9a",
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
@@ -395,7 +333,7 @@
                 },
                 {
                     "name": "positive",
-                    "id": "5123e370-df78-4128-8a16-89262c7775fb",
+                    "id": "f60df60e-5d9a-46fa-be05-ff2f5dadad58",
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
@@ -420,13 +358,13 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Move",
-                    "type": "Value",
-                    "id": "05955ae6-95c2-458a-9a5c-c870f58dedf1",
-                    "expectedControlType": "Axis",
+                    "name": "Log",
+                    "type": "Button",
+                    "id": "566844db-8278-4148-bbdb-9e7d1ee84417",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": true
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -453,57 +391,35 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "1D Axis",
-                    "id": "64cd6e51-634f-4405-80f0-b1a3e04d0ac0",
-                    "path": "1DAxis",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Move",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "Negative",
-                    "id": "76edf222-0f3f-4fc1-81bb-4fbbdacaf311",
-                    "path": "<Keyboard>/a",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "Positive",
-                    "id": "9ffb6c52-d0f3-4d6a-8480-326028213661",
-                    "path": "<Keyboard>/d",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
                     "name": "",
-                    "id": "fd83ddd2-f877-4646-85a0-63bd9b0b3d1b",
-                    "path": "<Gamepad>/leftStick/x",
+                    "id": "3b82e441-94fc-4bec-8bc8-822fc259037e",
+                    "path": "<Gamepad>/select",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Move",
+                    "action": "Log",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "eb26880a-7aac-4e50-985b-d5379d4b3c07",
-                    "path": "<Gamepad>/dpad/x",
+                    "id": "904d9319-c8a6-4a0e-86fc-9020f2d57d86",
+                    "path": "<Keyboard>/f1",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Move",
+                    "action": "Log",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "eb754528-62d4-4d96-9efa-e85a3b1495b6",
+                    "path": "<Keyboard>/minus",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Log",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

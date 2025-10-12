@@ -25,7 +25,7 @@ public class StartMenuUIManager : MonoBehaviour
 
         // If opening, highlight first settings button
         // If closing, highlight main Start button again
-        //SetSelected(isSettings ? defaultSettingsButton : defaultStartButton);
+        SetSelected(isSettings ? defaultSettingsButton : defaultStartButton);
     }
 
     public void ToggleControls()
@@ -34,7 +34,7 @@ public class StartMenuUIManager : MonoBehaviour
         controlsMenu.SetActive(isControls);
         settingsMenu.SetActive(!isControls);
 
-        //SetSelected(isControls ? defaultControlsButton : defaultSettingsButton);
+        SetSelected(isControls ? defaultControlsButton : defaultSettingsButton);
     }
 
     public void QuitGame()

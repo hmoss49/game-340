@@ -142,7 +142,7 @@ MonoBehaviour:
   checkGrounded: {fileID: 8263777122797872746}
   anim: {fileID: 0}
   printCompactSummary: 0
-  printVerboseLog: 1
+  printVerboseLog: 0
   debugPrintInterval: 0.25
 --- !u!114 &6684578773885000269
 MonoBehaviour:

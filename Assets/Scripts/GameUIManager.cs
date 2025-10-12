@@ -24,21 +24,18 @@ public class GameUIManager : MonoBehaviour
     // === Input callbacks ===
     void OnPause(InputValue value)
     {
-        if (!value.isPressed) return;
-
-        if (isPaused && !isSettings)
-            ResumeGame();
-        else
-            PauseGame();
+        if (value.isPressed)
+        {
+            if (isPaused && !isSettings)
+                ResumeGame();
+            else
+                PauseGame();
+        }
     }
 
     void OnLog(InputValue value)
     {
-        if (!value.isPressed) return;
-
-        isLog = !isLog;
-        if (inputLog)
-            inputLog.SetActive(isLog);
+        ToggleLogMenu();
     }
 
     // === Menu methods ===
@@ -58,7 +55,7 @@ public class GameUIManager : MonoBehaviour
         pauseMenu.SetActive(true);
         Time.timeScale = 0;
 
-        //SetSelected(defaultPauseButton);
+        SetSelected(defaultPauseButton);
     }
 
     public void ResumeGame()
@@ -67,7 +64,7 @@ public class GameUIManager : MonoBehaviour
         pauseMenu.SetActive(false);
         Time.timeScale = 1;
 
-        //EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(null);
     }
 
     public void ToggleControls()
@@ -78,7 +75,7 @@ public class GameUIManager : MonoBehaviour
         controlsMenu.SetActive(isControls);
         settingsMenu.SetActive(!isControls);
 
-        //SetSelected(isControls ? defaultControlsButton : defaultSettingsButton);
+        SetSelected(isControls ? defaultControlsButton : defaultSettingsButton);
     }
 
     public void ToggleSettingsMenu()
@@ -87,7 +84,13 @@ public class GameUIManager : MonoBehaviour
         settingsMenu.SetActive(isSettings);
         pauseMenu.SetActive(!isSettings);
 
-        //SetSelected(isSettings ? defaultSettingsButton : defaultPauseButton);
+        SetSelected(isSettings ? defaultSettingsButton : defaultPauseButton);
+    }
+
+    public void ToggleLogMenu()
+    {
+        isLog = !isLog;
+        inputLog.SetActive(isLog);
     }
 
     // === Helper ===
