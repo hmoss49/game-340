@@ -10,16 +10,19 @@ public class GameUIManager : MonoBehaviour
     public GameObject settingsMenu;
     public GameObject inputLog;
     public GameObject controlsMenu;
+    public GameObject aboutMenu;
 
     [Header("Default Selectable Buttons")]
     public Selectable defaultPauseButton;
     public Selectable defaultSettingsButton;
     public Selectable defaultControlsButton;
+    public Selectable defaultAboutButton;
 
     private bool isPaused = false;
     private bool isSettings = false;
     private bool isLog = false;
     private bool isControls = false;
+    private bool isAbout = false;
 
     // === Input callbacks ===
     void OnPause(InputValue value)
@@ -85,6 +88,15 @@ public class GameUIManager : MonoBehaviour
         pauseMenu.SetActive(!isSettings);
 
         SetSelected(isSettings ? defaultSettingsButton : defaultPauseButton);
+    }
+    
+    public void ToggleAboutMenu()
+    {
+        isAbout = !isAbout;
+        aboutMenu.SetActive(isAbout);
+        pauseMenu.SetActive(!isSettings);
+
+        SetSelected(isSettings ? defaultAboutButton : defaultPauseButton);
     }
 
     public void ToggleLogMenu()

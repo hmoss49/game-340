@@ -23,6 +23,7 @@ public class InputHistory
 
     private readonly List<InputFrame> buffer = new List<InputFrame>();
 
+    // === existing ===
     public void Record(FighterInput input, FighterContext ctx)
     {
         var frame = new InputFrame
@@ -105,7 +106,6 @@ public class InputHistory
     private void Cleanup()
     {
         float cutoff = Time.time - bufferSeconds;
-        // remove old front items (keep order)
         int idx = 0;
         while (idx < buffer.Count && buffer[idx].time < cutoff) idx++;
         if (idx > 0) buffer.RemoveRange(0, idx);
@@ -131,5 +131,50 @@ public class InputHistory
         if (x == 4) return 4;
         if (x == 6) return 6;
         return 5;
+    }
+
+    // === NEW HELPERS FOR MOVE RESOLUTION ===
+
+    /// <summary>
+    /// Returns the most recently pressed attack button as a string (LP, MP, HP, LK, MK, HK), or null if none.
+    /// </summary>
+    public string GetLatestButton()
+    {
+        for (int i = buffer.Count - 1; i >= 0; i--)
+        {
+            var f = buffer[i];
+            if (f.LP) return "LP";
+            if (f.MP) return "MP";
+            if (f.HP) return "HP";
+            if (f.LK) return "LK";
+            if (f.MK) return "MK";
+            if (f.HK) return "HK";
+        }
+        return null;
+    }
+
+    /// <summary>
+    /// Returns a short motion string (like 236 or 214) from the recent buffer, ignoring repeated and neutral (5) directions.
+    /// </summary>
+    public string GetRecentMotionString(float lookbackSeconds = 0.5f)
+    {
+        if (buffer.Count == 0) return string.Empty;
+        float cutoff = Time.time - lookbackSeconds;
+
+        var sb = new StringBuilder();
+        int lastDir = -1;
+
+        for (int i = buffer.Count - 1; i >= 0; i--)
+        {
+            var f = buffer[i];
+            if (f.time < cutoff) break;
+
+            int dir = f.dir;
+            if (dir == 5) continue; // skip neutral
+            if (dir == lastDir) continue;
+            sb.Insert(0, dir.ToString());
+            lastDir = dir;
+        }
+        return sb.ToString();
     }
 }

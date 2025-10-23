@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[RequireComponent(typeof(CheckGrounded), typeof(BoxCollider2D))]
+[RequireComponent(typeof(CheckGrounded), typeof(Collider2D))]
 public class FighterMovement : MonoBehaviour
 {
     [Header("Movement Settings")]

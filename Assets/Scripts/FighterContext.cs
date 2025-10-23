@@ -27,7 +27,7 @@ public class FighterContext
 
     // Optional: you can track grounded and facing info here if useful
     public bool IsGrounded;
-    public bool FacingRight = true;
+    public int FacingDirection = 1;
 
     // For debugging in Inspector (optional)
     public override string ToString()

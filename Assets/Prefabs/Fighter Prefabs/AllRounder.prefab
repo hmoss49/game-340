@@ -16,6 +16,8 @@ GameObject:
   - component: {fileID: 8263777122797872746}
   - component: {fileID: 47907704775686364}
   - component: {fileID: 977197052260743703}
+  - component: {fileID: 9150215450537008835}
+  - component: {fileID: 7014417984675550430}
   m_Layer: 0
   m_Name: AllRounder
   m_TagString: Player
@@ -141,6 +143,8 @@ MonoBehaviour:
   movement: {fileID: 0}
   checkGrounded: {fileID: 8263777122797872746}
   anim: {fileID: 0}
+  attacks:
+  - {fileID: 11400000, guid: d7924b927a19c0f4892d666d2b46aae1, type: 2}
   printCompactSummary: 0
   printVerboseLog: 0
   debugPrintInterval: 0.25
@@ -239,3 +243,43 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FighterBounds
   pushSmooth: 15
   tolerance: 0.001
+--- !u!50 &9150215450537008835
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 468804649613146729}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &7014417984675550430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 468804649613146729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66c88a82424f6a44f8bd52c3c870d6ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BodyPush
+  pushForce: 8
