@@ -8,12 +8,10 @@ public class AttackResolver
     {
         moveList = moves ?? new List<AttackData>();
     }
-
-    /// <summary>
-    /// Choose the best matching move from recent inputs.
-    /// Prefers exact button match, then motion suffix match with longest motion winning.
-    /// Returns null if nothing matches this frame.
-    /// </summary>
+    
+    // Choose the best matching move from recent inputs.
+    // Prefers exact button match, then motion suffix match with longest motion winning.
+    // Returns null if nothing matches this frame.
     public AttackData Resolve(InputHistory history, float motionLookbackSeconds = 0.6f)
     {
         if (history == null || moveList.Count == 0) return null;

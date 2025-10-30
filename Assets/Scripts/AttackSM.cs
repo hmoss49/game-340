@@ -17,7 +17,7 @@ public class AttackSM
 
     public bool IsAttacking => ctx.Attack != FighterContext.AttackState.None;
 
-    /// <summary>Begin an attack using data (startup/active/recovery + hitbox info).</summary>
+    //Begin an attack using data (startup/active/recovery + hitbox info)
     public void BeginAttack(AttackData data, Transform attackerTransform)
     {
         if (data == null || IsAttacking) return;
@@ -72,13 +72,11 @@ public class AttackSM
     private void SpawnHitbox()
     {
         if (currentAttack == null || currentAttack.hitboxPrefab == null || attacker == null) return;
-        currentAttack.hitboxOffset.x *= ctx.FacingDirection;
-        
         var go = UnityEngine.Object.Instantiate(currentAttack.hitboxPrefab, attacker.position, Quaternion.identity);
         var hb = go.GetComponent<Hitbox>();
         if (hb != null)
         {
-            hb.Initialize(currentAttack, attacker);
+            hb.Initialize(currentAttack, attacker, ctx.FacingDirection);
             if (currentAttack.attachToFighter)
                 go.transform.SetParent(attacker, worldPositionStays: true);
         }

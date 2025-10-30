@@ -10,63 +10,60 @@ public class Hitbox : MonoBehaviour
     [HideInInspector] public AttackData attackData;
     [HideInInspector] public Transform attacker;
 
-    private BoxCollider2D col;
-    private float timer;
-    private bool active;
-    private bool hasHit;
+    private BoxCollider2D _col;
+    private float _timer;
+    private bool _active;
+    private bool _hasHit;
 
     void Awake()
     {
-        col = GetComponent<BoxCollider2D>();
-        col.isTrigger = true;
+        _col = GetComponent<BoxCollider2D>();
+        _col.isTrigger = true;
     }
 
     void Update()
     {
-        if (!active) return;
+        if (!_active) return;
 
-        timer -= Time.deltaTime;
-        if (timer <= 0f)
+        _timer -= Time.deltaTime;
+        if (_timer <= 0f)
         {
             Disable();
         }
     }
-
-    /// <summary>
+    
     /// Initializes this hitbox using AttackData values.
-    /// </summary>
-    public void Initialize(AttackData data, Transform source)
+    public void Initialize(AttackData data, Transform source, float facingDirection)
     {
         attackData = data;
         attacker = source;
 
-        if (col != null)
+        if (_col != null)
         {
-            col.size = data.hitboxSize;
-            col.offset = data.hitboxOffset;
+            _col.size = data.hitboxSize;
+            _col.offset = new Vector2(data.hitboxOffset.x * facingDirection, data.hitboxOffset.y);
         }
-
         transform.localRotation = Quaternion.Euler(0f, 0f, data.hitboxRotation);
-        active = true;
-        hasHit = false;
-        timer = data.activeTime;
+        _active = true;
+        _hasHit = false;
+        _timer = data.activeTime;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!active || hasHit) return;
+        if (!_active || _hasHit) return;
 
         IDamageable dmg = other.GetComponent<IDamageable>();
         if (dmg != null && attacker != null)
         {
             dmg.ReceiveHit(attackData, attacker);
-            hasHit = true; // prevent multi-hits per activation
+            _hasHit = true; // prevent multi-hits per activation
         }
     }
 
     private void Disable()
     {
-        active = false;
+        _active = false;
         Destroy(gameObject);
     }
 
@@ -76,7 +73,7 @@ public class Hitbox : MonoBehaviour
         if (attackData == null) return;
         Gizmos.color = Color.red;
         Gizmos.matrix = transform.localToWorldMatrix;
-        Gizmos.DrawWireCube(attackData.hitboxOffset, attackData.hitboxSize);
+        Gizmos.DrawWireCube(_col.offset, _col.size);
     }
 #endif
 }

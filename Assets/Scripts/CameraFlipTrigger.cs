@@ -10,11 +10,6 @@ public class CameraFlipTrigger : MonoBehaviour
             var camSetter = FindFirstObjectByType<CameraTargetSetter>();
             if (camSetter != null)
                 camSetter.FlipScreenX();
-            FighterController controller = GetComponent<FighterController>();
-            if (controller != null)
-            {
-                controller.FlipFacingDirection();
-            }
         }
     }
 }

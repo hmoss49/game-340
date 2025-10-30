@@ -3,7 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Fighter/Attack Data", fileName = "NewAttack")]
 public class AttackData : ScriptableObject
 {
-    public enum KnockbackType { Away, Up, Down }
+    public enum KnockbackType { Away, Up, Down, UpAway, DownAway}
 
     [Header("Identity")]
     public string attackName;
@@ -25,8 +25,6 @@ public class AttackData : ScriptableObject
     public float hitstunTime;
     [Tooltip("Horizontal knockback strength.")]
     public float knockbackStrength;
-    [Tooltip("Vertical lift applied to target.")]
-    public float verticalLift;
     [Tooltip("Direction type of knockback.")]
     public KnockbackType knockbackType;
 

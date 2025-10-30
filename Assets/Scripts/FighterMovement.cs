@@ -14,7 +14,7 @@ public class FighterMovement : MonoBehaviour
     public float crouchTransitionSpeed = 15f; // optional: smoothness factor
 
     private CheckGrounded checkGrounded;
-    private BoxCollider2D col;
+    private Collider2D col;
 
     private float verticalVel;
     private bool wasGroundedLastFrame;
@@ -28,10 +28,10 @@ public class FighterMovement : MonoBehaviour
     void Awake()
     {
         checkGrounded = GetComponent<CheckGrounded>();
-        col = GetComponent<BoxCollider2D>();
+        col = GetComponent<Collider2D>();
 
         originalScale = transform.localScale;
-        originalColliderSize = col.size;
+        originalColliderSize = col.transform.localScale;
         originalColliderOffset = col.offset;
     }
 
@@ -98,7 +98,7 @@ public class FighterMovement : MonoBehaviour
             transform.position = new Vector3(pos.x, pos.y - delta, pos.z);
 
             // Shrink the collider too
-            col.size = new Vector2(originalColliderSize.x, originalColliderSize.y * crouchScaleY);
+            col.transform.localScale = new Vector2(originalColliderSize.x, originalColliderSize.y * crouchScaleY);
             col.offset = new Vector2(originalColliderOffset.x, originalColliderOffset.y - delta);
         }
         else
@@ -108,7 +108,7 @@ public class FighterMovement : MonoBehaviour
             transform.position = new Vector3(pos.x, pos.y + delta, pos.z);
 
             // Restore collider
-            col.size = originalColliderSize;
+            col.transform.localScale = originalColliderSize;
             col.offset = originalColliderOffset;
 
             // Re-snap to ground to avoid floating from scale change
@@ -117,4 +117,5 @@ public class FighterMovement : MonoBehaviour
     }
 
     public float GetVerticalVelocity() => verticalVel;
+    public void SetVerticalVelocity(float v) => verticalVel = v;
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -12,8 +13,8 @@ public class FighterController : MonoBehaviour
     public List<AttackData> attacks = new List<AttackData>();
 
     [Header("Debug")]
-    public bool printCompactSummary = false;
-    public bool printVerboseLog = false;
+    public bool printCompactSummary;
+    public bool printVerboseLog;
     public float debugPrintInterval = 0.25f;
 
     private FighterInput input = new FighterInput();
@@ -129,4 +130,12 @@ public class FighterController : MonoBehaviour
     void OnHeavyKick  (InputValue v) { if (v.isPressed) input.HeavyKickPressed   = true; }
 
     public string GetCompactSummary() => inputHistory.GetSummary();
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Flip"))
+        {
+            FlipFacingDirection();
+        }
+    }
 }

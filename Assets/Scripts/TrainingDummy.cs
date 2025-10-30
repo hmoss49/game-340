@@ -15,7 +15,6 @@ public class TrainingDummy : MonoBehaviour, IDamageable
     [Header("Stats")]
     public float maxHealth = 9999f;
     public float currentHealth;
-    public float knockbackResistance = 1f;
     public float hitFriction = 6f;
     public float wallBounce = 0.4f;
     public float flashDuration = 0.1f;
@@ -42,22 +41,43 @@ public class TrainingDummy : MonoBehaviour, IDamageable
 
     void Update()
     {
-        // Apply gravity using FighterMovement (same as FighterController)
-        if (!checkGrounded.IsGrounded())
-            onGround = movement.ApplyGravity(1f);
-        else
-            onGround = true;
+        bool grounded = checkGrounded.IsGrounded();
 
-        // Decay knockback horizontally
+        // Apply gravity to dummy's own Y velocity (same as FighterMovement)
+        if (!grounded)
+        {
+            velocity.y += movement.gravity * movement.weight * Time.deltaTime;
+        }
+        else
+        {
+            if (!onGround)
+            {
+                // Just landed
+                checkGrounded.ClampToGround(transform);
+                velocity.y = 0f;
+            }
+            else if (velocity.y < 0f)
+            {
+                velocity.y = 0f;
+            }
+        }
+
+        // Horizontal decay from knockback
         if (beingPushed)
         {
             velocity.x = Mathf.Lerp(velocity.x, 0f, hitFriction * Time.deltaTime);
-            if (onGround && Mathf.Abs(velocity.x) < 0.05f)
+            if (grounded && Mathf.Abs(velocity.x) < 0.05f && Mathf.Abs(velocity.y) < 0.05f)
+            {
                 beingPushed = false;
+                velocity.x = 0f;
+            }
         }
+        
 
-        // Apply horizontal displacement
-        transform.position += new Vector3(velocity.x * Time.deltaTime, 0f, 0f);
+        // Move dummy
+        transform.position += (Vector3)(velocity * Time.deltaTime);
+
+        onGround = grounded;
     }
 
     // === IDamageable ===
@@ -67,24 +87,29 @@ public class TrainingDummy : MonoBehaviour, IDamageable
         if (data == null || attacker == null) return;
 
         float dirX = (transform.position.x > attacker.position.x) ? 1f : -1f;
+        print(dirX);
         Vector2 knockback = Vector2.zero;
 
         switch (data.knockbackType)
         {
             case AttackData.KnockbackType.Away:
-                knockback = new Vector2(dirX * data.knockbackStrength, data.verticalLift);
+                knockback = new Vector2(dirX * data.knockbackStrength, 0);
                 break;
             case AttackData.KnockbackType.Up:
-                knockback = new Vector2(dirX * data.knockbackStrength * 0.6f,
-                                        Mathf.Abs(data.verticalLift) + data.knockbackStrength * 0.8f);
+                knockback = new Vector2(0, data.knockbackStrength);
                 break;
             case AttackData.KnockbackType.Down:
-                knockback = new Vector2(dirX * data.knockbackStrength * 0.6f,
-                                        -Mathf.Abs(data.verticalLift) - data.knockbackStrength * 0.5f);
+                knockback = new Vector2(0, -data.knockbackStrength);
+                break;
+            case AttackData.KnockbackType.UpAway:
+                knockback = new Vector2(dirX * data.knockbackStrength, data.knockbackStrength);
+                break;
+            case AttackData.KnockbackType.DownAway:
+                knockback = new Vector2(dirX * data.knockbackStrength, -data.knockbackStrength);
                 break;
         }
 
-        velocity = knockback / Mathf.Max(0.1f, knockbackResistance);
+        velocity = knockback / Mathf.Max(0.1f, movement.weight);
         beingPushed = true;
         currentHealth -= data.damage;
 

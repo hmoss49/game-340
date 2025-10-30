@@ -10,22 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f46b42c613b3c5b41870ab8596f2bccf, type: 3}
-  m_Name: LightPunch
+  m_Name: Uppercut
   m_EditorClassIdentifier: Assembly-CSharp::AttackData
-  attackName: Standing Light Punch
-  motionInput: 
-  buttonName: LP
+  attackName: Uppercut
+  motionInput: 236
+  buttonName: MP
   startupTime: 0.1
-  activeTime: 0.08
+  activeTime: 0.1
   recoveryTime: 0.2
-  damage: 10
-  hitstunTime: 1
-  knockbackStrength: 5
-  knockbackType: 0
+  damage: 30
+  hitstunTime: 2
+  knockbackStrength: 10
+  knockbackType: 1
   hitboxPrefab: {fileID: 4644887882530854665, guid: 2c8d2793d0dfc8043a8b260058925d3e, type: 3}
-  hitboxOffset: {x: 1, y: 0.25}
-  hitboxSize: {x: 1, y: 0.5}
+  hitboxOffset: {x: 1, y: 1}
+  hitboxSize: {x: 1, y: 2}
   hitboxRotation: 0
-  attachToFighter: 1
-  animationTrigger: LightPunch
+  attachToFighter: 0
+  animationTrigger: 
   soundEffect: {fileID: 0}

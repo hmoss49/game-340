@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f46b42c613b3c5b41870ab8596f2bccf, type: 3}
-  m_Name: LightPunch
+  m_Name: MediumPunch
   m_EditorClassIdentifier: Assembly-CSharp::AttackData
-  attackName: Standing Light Punch
+  attackName: Standing Medium Punch
   motionInput: 
-  buttonName: LP
-  startupTime: 0.1
-  activeTime: 0.08
-  recoveryTime: 0.2
+  buttonName: MP
+  startupTime: 0.2
+  activeTime: 0.1
+  recoveryTime: 0.3
   damage: 10
   hitstunTime: 1
-  knockbackStrength: 5
+  knockbackStrength: 20
   knockbackType: 0
   hitboxPrefab: {fileID: 4644887882530854665, guid: 2c8d2793d0dfc8043a8b260058925d3e, type: 3}
-  hitboxOffset: {x: 1, y: 0.25}
-  hitboxSize: {x: 1, y: 0.5}
+  hitboxOffset: {x: 1.25, y: 0.25}
+  hitboxSize: {x: 1.5, y: 0.5}
   hitboxRotation: 0
   attachToFighter: 1
   animationTrigger: LightPunch
