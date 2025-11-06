@@ -143,11 +143,7 @@ MonoBehaviour:
   movement: {fileID: 6684578773885000269}
   checkGrounded: {fileID: 8263777122797872746}
   anim: {fileID: 0}
-  attacks:
-  - {fileID: 11400000, guid: d7924b927a19c0f4892d666d2b46aae1, type: 2}
-  - {fileID: 11400000, guid: 8008466425ffcc847aa2f515b93f8bed, type: 2}
-  - {fileID: 11400000, guid: cd452569b52bc664ea8c7c560fd1bf3e, type: 2}
-  - {fileID: 11400000, guid: cd8069f1629b9e641942e7701b9407d0, type: 2}
+  attacks: []
   printCompactSummary: 0
   printVerboseLog: 0
   debugPrintInterval: 0.25
@@ -167,6 +163,7 @@ MonoBehaviour:
   gravity: -9.81
   weight: 1
   jumpForce: 10
+  friction: 0.5
   crouchScaleY: 0.5
   crouchTransitionSpeed: 15
 --- !u!114 &8263777122797872746

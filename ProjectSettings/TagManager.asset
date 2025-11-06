@@ -8,6 +8,7 @@ TagManager:
   - Ground
   - Dummy
   - Flip
+  - Enemy
   layers:
   - Default
   - TransparentFX
