@@ -126,7 +126,9 @@ public class FighterMovement : MonoBehaviour
     {
         if (beingPushed)
         {
-            velocity.x = Mathf.Lerp(velocity.x, 0f, friction * Time.deltaTime);
+            float effectiveFriction = friction * Mathf.Max(0.1f, weight);
+            velocity.x = Mathf.Lerp(velocity.x, 0f, effectiveFriction * Time.deltaTime);
+            
             if (grounded && Mathf.Abs(velocity.x) < 0.05f && Mathf.Abs(velocity.y) < 0.05f)
             {
                 beingPushed = false;
@@ -155,4 +157,11 @@ public class FighterMovement : MonoBehaviour
     }
 
     public Vector2 GetVelocity() => velocity;
+
+    public Vector2 SetVelocity(Vector2 velocity) => velocity;
+
+    public void HaltMovement()
+    {
+        velocity = Vector2.zero;
+    }
 }

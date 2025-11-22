@@ -16,12 +16,12 @@ MonoBehaviour:
   motionInput: 
   buttonName: HP
   startupTime: 0.3
-  activeTime: 0.2
-  recoveryTime: 0.4
+  activeTime: 0.5
+  recoveryTime: 0.3
   damage: 40
   hitstunTime: 3
-  knockbackStrength: 30
-  knockbackType: 0
+  knockbackStrength: 20
+  knockbackType: 3
   hitboxPrefab: {fileID: 4644887882530854665, guid: 2c8d2793d0dfc8043a8b260058925d3e, type: 3}
   hitboxOffset: {x: 1.25, y: 0.25}
   hitboxSize: {x: 1.5, y: 0.5}

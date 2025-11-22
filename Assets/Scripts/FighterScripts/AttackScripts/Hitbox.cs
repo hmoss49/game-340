@@ -11,6 +11,7 @@ public class Hitbox : MonoBehaviour
     [HideInInspector] public Transform attacker;
 
     private BoxCollider2D col;
+    private SpriteRenderer sr;
     private float timer;
     private bool active;
     private bool hasHit;
@@ -38,12 +39,9 @@ public class Hitbox : MonoBehaviour
         attackData = data;
         attacker = source;
 
-        if (col != null)
-        {
-            col.size = data.hitboxSize;
-            col.offset = new Vector2(data.hitboxOffset.x * facingDirection, data.hitboxOffset.y);
-        }
         transform.localRotation = Quaternion.Euler(0f, 0f, data.hitboxRotation);
+        transform.localScale = new Vector3(data.hitboxSize.x, data.hitboxSize.y, 1f);
+        
         active = true;
         hasHit = false;
         timer = data.activeTime;

@@ -30,6 +30,10 @@ public class FighterController : MonoBehaviour
     private AttackResolver attackResolver;
 
     private float debugTimer = 0f;
+    private SpriteRenderer spriteRenderer;
+    private Color originalColor;
+
+    private Enemy enemy;
 
     void Awake()
     {
@@ -54,13 +58,24 @@ public class FighterController : MonoBehaviour
         };
 
         attackResolver = new AttackResolver(attacks);
-        AddAttack(Resources.Load<AttackData>("Attacks/LightPunch"));
-        AddAttack(Resources.Load<AttackData>("Attacks/MediumPunch"));
+        AddAttack(Resources.Load<AttackData>("Upgrades/Attacks/Defaults/LightPunch"));
+        AddAttack(Resources.Load<AttackData>("Upgrades/Attacks/Defaults/MediumPunch"));
+        
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        originalColor = spriteRenderer.color;
+    }
+
+    private void Start()
+    { 
+        enemy = FindFirstObjectByType<Enemy>();
     }
 
     public void FlipFacingDirection()
     {
         ctx.FacingDirection *= -1;
+        var camSetter = FindFirstObjectByType<CameraTargetSetter>();
+        if (camSetter != null)
+            camSetter.FlipScreenX();
     }
     void Update()
     {
@@ -115,6 +130,33 @@ public class FighterController : MonoBehaviour
         input.LightKickPressed   = false;
         input.MediumKickPressed  = false;
         input.HeavyKickPressed   = false;
+        
+        // 7) Change Color Based On State
+        switch (ctx.Attack)
+        {
+            case FighterContext.AttackState.Startup:
+                spriteRenderer.color = new Color(originalColor.r * 1.5f, originalColor.g * 1.5f, originalColor.b * 1.5f, 1f);
+                break;
+            case FighterContext.AttackState.Active:
+                spriteRenderer.color = Color.red;
+                break;
+            case FighterContext.AttackState.Recovery:
+                spriteRenderer.color = Color.gray; //new Color(originalColor.r * 0.5f, originalColor.g * 0.5f, originalColor.b * 0.5f, 1f);
+                break;
+            case FighterContext.AttackState.None:
+                spriteRenderer.color = originalColor;
+                break;
+        }
+        
+        //8) Enemy
+        if (enemy == null)
+        {
+            enemy = FindFirstObjectByType<Enemy>();
+        }
+        else
+        {
+            CheckFacingDirection();
+        }
     }
 
     // === Input System callbacks (unchanged) ===
@@ -137,6 +179,17 @@ public class FighterController : MonoBehaviour
         if (!attacks.Contains(data))
         {
             attacks.Add(data.Clone());
+        }
+    }
+
+    private void CheckFacingDirection()
+    {
+        if (this.transform.position.x > enemy.transform.position.x & ctx.FacingDirection != -1)
+        {
+            FlipFacingDirection();
+        } else if (this.transform.position.x < enemy.transform.position.x & ctx.FacingDirection == -1)
+        {
+            FlipFacingDirection();
         }
     }
 

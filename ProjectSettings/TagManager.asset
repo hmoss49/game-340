@@ -9,6 +9,7 @@ TagManager:
   - Dummy
   - Flip
   - Enemy
+  - EnemySpawn
   layers:
   - Default
   - TransparentFX

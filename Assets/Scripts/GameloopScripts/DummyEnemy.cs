@@ -1,21 +1,14 @@
+using System;
 using UnityEngine;
 using System.Collections;
 
-/// <summary>
-/// Training dummy that uses FighterMovement gravity and grounding,
-/// can be hit, knocked back, and bounces off walls.
-/// </summary>
-[RequireComponent(typeof(FighterMovement))]
-[RequireComponent(typeof(FighterBounds))]
-[RequireComponent(typeof(SpriteRenderer))]
-[RequireComponent(typeof(Collider2D))]
-public class TrainingDummy : Enemy, IDamageable
+public class DummyEnemy : Enemy, IDamageable
 {
     [Header("Stats")]
     public float flashDuration = 0.1f;
-    public float respawnDuration;
-    public GameObject respawnPoint;
 
+    public float deathDuration;
+    
     private FighterMovement movement;
     private FighterBounds bounds;
     private SpriteRenderer sprite;
@@ -26,7 +19,7 @@ public class TrainingDummy : Enemy, IDamageable
     private bool flashing;
     private bool onGround;
 
-    void Awake()
+    protected override void Awake()
     {
         base.Awake();
         movement = GetComponent<FighterMovement>();
@@ -74,19 +67,19 @@ public class TrainingDummy : Enemy, IDamageable
                 knockback = new Vector2(0, -data.knockbackStrength);
                 break;
             case AttackData.KnockbackType.UpAway:
-                knockback = new Vector2(directionX * data.knockbackStrength, data.knockbackStrength);
+                knockback = new Vector2(directionX * data.knockbackStrength, data.knockbackStrength/2);
                 break;
             case AttackData.KnockbackType.DownAway:
-                knockback = new Vector2(directionX * data.knockbackStrength, -data.knockbackStrength);
+                knockback = new Vector2(directionX * data.knockbackStrength, -data.knockbackStrength/2);
                 break;
         }
 
-        movement.ApplyKnockback(knockback / Mathf.Max(0.1f, movement.weight));
+        movement.ApplyKnockback(knockback);
     }
 
     public void Loss()
     {
-        StartCoroutine(Respawn());
+        StartCoroutine(Death());
     }
 
     public float CalculateDirection(Transform attacker)
@@ -103,17 +96,12 @@ public class TrainingDummy : Enemy, IDamageable
         flashing = false;
     }
 
-    private IEnumerator Respawn()
+    private IEnumerator Death()
     {
-        sprite.color = originalColor;
-        sprite.enabled = false;
-        dummyCollider.enabled = false;
-        yield return new WaitForSeconds(0.2f);
-        isDefeated.Value = true;
-        yield return new WaitForSeconds(respawnDuration);
-        currentHealth.Value = maxHealth;
-        isDefeated.Value = false;
-        sprite.enabled = true;
-        dummyCollider.enabled = true;
+        sprite.color = Color.red;
+        yield return new WaitForSeconds(deathDuration);
+        if (!isDefeated.Value)
+            isDefeated.Value = true;
+        Destroy(gameObject);
     }
 }

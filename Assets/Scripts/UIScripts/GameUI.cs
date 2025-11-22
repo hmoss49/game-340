@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
@@ -11,7 +13,13 @@ public class GameUI : MonoBehaviour
     public GameObject inputLog;
     public GameObject controlsMenu;
     public GameObject aboutMenu;
+    public GameObject resultsMenu;
     public GameObject upgradeMenu;
+    public GameObject upgradeChoiceOne;
+    public GameObject upgradeChoiceTwo;
+    public GameObject upgradeChoiceThree;
+    public TextMeshProUGUI resultsText;
+    public TextMeshProUGUI timerText;
 
     [Header("Default Selectable Buttons")]
     public Selectable defaultPauseButton;
@@ -19,6 +27,8 @@ public class GameUI : MonoBehaviour
     public Selectable defaultControlsButton;
     public Selectable defaultAboutButton;
     public Selectable defaultUpgradeButton;
+    public Selectable defaultResultsButton;
+    
 
     private bool isPaused = false;
     private bool isSettings = false;
@@ -26,6 +36,7 @@ public class GameUI : MonoBehaviour
     private bool isControls = false;
     private bool isAbout = false;
     private bool isUpgrade = false;
+    private bool isResults = false;
 
     // === Input callbacks ===
     void OnPause(InputValue value)
@@ -97,9 +108,9 @@ public class GameUI : MonoBehaviour
     {
         isAbout = !isAbout;
         aboutMenu.SetActive(isAbout);
-        pauseMenu.SetActive(!isSettings);
+        pauseMenu.SetActive(!isAbout);
 
-        SetSelected(isSettings ? defaultAboutButton : defaultPauseButton);
+        SetSelected(isAbout ? defaultAboutButton : defaultPauseButton);
     }
 
     public void ToggleLogMenu()
@@ -107,12 +118,27 @@ public class GameUI : MonoBehaviour
         isLog = !isLog;
         inputLog.SetActive(isLog);
     }
+
+    public void ToggleResultsMenu()
+    {
+        isResults = !isResults;
+        resultsMenu.SetActive(isResults);
+        if (isResults)
+        {
+            Time.timeScale = 0;
+            SetSelected(isResults ? defaultResultsButton : defaultPauseButton);
+        }
+        else
+        {
+            Time.timeScale = 1;
+            SetSelected(null);
+        }
+    }
     
     public void ToggleUpgradeMenu()
     {
         isUpgrade = !isUpgrade;
         upgradeMenu.SetActive(isUpgrade);
-
         if (isUpgrade)
         {
             Time.timeScale = 0;
@@ -123,6 +149,57 @@ public class GameUI : MonoBehaviour
             Time.timeScale = 1;
             SetSelected(null);
         }
+    }
+
+    public void UpdateUpgradeChoices(List<UpgradeData> choices, UpgradeSystem system)
+    {
+        ToggleUpgradeMenu();
+
+        // Grab buttons from the three GameObjects
+        Button[] buttons = new Button[3];
+        buttons[0] = upgradeChoiceOne.GetComponent<Button>();
+        buttons[1] = upgradeChoiceTwo.GetComponent<Button>();
+        buttons[2] = upgradeChoiceThree.GetComponent<Button>();
+
+        // Assign names + listeners
+        for (int i = 0; i < buttons.Length; i++)
+        {
+            if (i < choices.Count)
+            {
+                var upgrade = choices[i];
+
+                // Set visible text
+                var text = buttons[i].GetComponentInChildren<TMP_Text>();
+                if (text != null)
+                    text.text = upgrade.upgradeName;
+
+                buttons[i].gameObject.SetActive(true);
+
+                // Clear old listeners first
+                buttons[i].onClick.RemoveAllListeners();
+
+                // Capture upgrade variable
+                UpgradeData capturedUpgrade = upgrade;
+                buttons[i].onClick.AddListener(() =>
+                {
+                    system.UpgradeChosen(capturedUpgrade);
+                });
+            }
+            else
+            {
+                buttons[i].gameObject.SetActive(false);
+            }
+        }
+    }
+
+    public void SetResultsText(string text)
+    {
+        resultsText.text = text;
+    }
+
+    public void SetTimerText(float time)
+    {
+        timerText.text = $"Defeat the enemies in:\n{Mathf.CeilToInt(time)}";
     }
 
     // === Helper ===

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
@@ -15,17 +16,17 @@ public class EnemyHealthBar : MonoBehaviour
 
     private void Awake()
     {
-        if (enemy == null)
-            enemy = GetComponentInParent<TrainingDummy>();
-
         if (greenBar == null)
             greenBar = GetComponentInChildren<Image>();
     }
 
-    private void OnEnable()
+    private void Start()
     {
-        if (enemy != null && enemy.currentHealth != null)
+        if (enemy == null)
+        {
+            enemy = FindFirstObjectByType<Enemy>();
             enemy.currentHealth.ChangeEvent += OnHealthChanged;
+        }
     }
 
     private void OnDisable()
@@ -41,7 +42,17 @@ public class EnemyHealthBar : MonoBehaviour
 
     private void Update()
     {
-        // Smoothly interpolate toward new fill
-        greenBar.fillAmount = Mathf.Lerp(greenBar.fillAmount, targetPercent, Time.deltaTime * lerpSpeed);
+        if (enemy == null)
+        {
+            enemy = FindFirstObjectByType<Enemy>();
+            if (enemy != null)
+            {
+                enemy.currentHealth.ChangeEvent += OnHealthChanged;
+            }
+        }
+        else
+        {
+            greenBar.fillAmount = Mathf.Lerp(greenBar.fillAmount, targetPercent, Time.deltaTime * lerpSpeed);
+        }
     }
 }

@@ -72,7 +72,7 @@ public class AttackSM
     private void SpawnHitbox()
     {
         if (currentAttack == null || currentAttack.hitboxPrefab == null || attacker == null) return;
-        var go = UnityEngine.Object.Instantiate(currentAttack.hitboxPrefab, attacker.position, Quaternion.identity);
+        var go = UnityEngine.Object.Instantiate(currentAttack.hitboxPrefab, new Vector3(attacker.position.x + currentAttack.hitboxOffset.x * ctx.FacingDirection, attacker.position.y + currentAttack.hitboxOffset.y, attacker.position.z), Quaternion.identity);
         var hb = go.GetComponent<Hitbox>();
         if (hb != null)
         {

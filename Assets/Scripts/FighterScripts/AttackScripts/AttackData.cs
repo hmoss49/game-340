@@ -84,4 +84,10 @@ public class AttackData : ScriptableObject
         // Compare only on attackName (case-sensitive, or use OrdinalIgnoreCase if you want)
         return string.Equals(this.attackName, other.attackName, System.StringComparison.Ordinal);
     }
+    
+    public override int GetHashCode()
+    {
+        // Must be consistent with Equals — use the same property
+        return attackName != null ? attackName.GetHashCode() : 0;
+    }
 }
